@@ -51,6 +51,11 @@ const Routing: Routes = [
     path: 'roles',
     loadChildren: () => import('../modules/roles/roles.module').then((m) => m.RolesModule),
   },
+  //link para ir a departamentos
+  {
+    path: 'departamentos',
+    loadChildren: () => import('../modules/departamentos/departamentos.module').then((m) => m.DepartamentosModule),
+  },
   {
     path: '',
     redirectTo: '/dashboard',

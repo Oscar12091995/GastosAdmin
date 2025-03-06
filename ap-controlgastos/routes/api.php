@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DepartamentosController;
+use App\Http\Controllers\PuestosController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +43,19 @@ Route::group([
     Route::resource("roles",RolePermissionController::class);
 });
 
+//endpoint para el registro de departamentos
+Route::group([
+    'middleware' => 'auth:api',
+], function ($router) {
+    Route::resource('departamentos', DepartamentosController::class);
+});
+
+//endpoint para el registro de puestos
+Route::group([
+    'middleware' => 'auth:api',
+], function ($router) {
+    Route::resource('puestos', PuestosController::class);
+});
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
