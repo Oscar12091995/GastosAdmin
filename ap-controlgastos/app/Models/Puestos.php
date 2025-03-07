@@ -12,7 +12,7 @@ class Puestos extends Model
     protected $fillable = ['descripcion','estatus', 'departamento_id', 'usuario_registro'];
 
     public function departamento(){
-        return $this->belongsTo(Departamento::class);
+        return $this->belongsTo(Departamento::class, 'departamento_id');
     }
 
     public function empleados(){

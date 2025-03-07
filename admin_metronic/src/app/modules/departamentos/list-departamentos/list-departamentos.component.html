@@ -74,6 +74,9 @@
               <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="5" rowspan="1" colspan="1"
                 aria-label="Created Date: Activate to sort" tabindex="0"><span class="dt-column-title"
                   role="button">Fecha registro</span><span class="dt-column-order"></span></th>
+                  <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="5" rowspan="1" colspan="1"
+                  aria-label="Estatus : Activate to sort" tabindex="0"><span class="dt-column-title"
+                    role="button">Estatus</span><span class="dt-column-order"></span></th>
               <th class="min-w-70px dt-orderable-none" data-dt-column="6" rowspan="1" colspan="1" aria-label="Actions">
                 <span class="dt-column-title">Acciones</span><span class="dt-column-order"></span></th>
             </tr>
@@ -99,6 +102,15 @@
 
                 <td data-order="2020-12-14T20:43:00-06:00">
                   {{DEPARTAMENTO.created_at}}
+                </td>
+                <td>
+
+                  <span class="badge badge-light-success" *ngIf="DEPARTAMENTO.estatus === 1">
+                    Activo
+                  </span>
+                  <span class="badge badge-light-danger" *ngIf="DEPARTAMENTO.estatus === 0">
+                    Inactivo
+                  </span>
                 </td>
                 <td class="">
                   <!-- boton para editar -->

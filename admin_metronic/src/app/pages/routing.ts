@@ -57,6 +57,10 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/departamentos/departamentos.module').then((m) => m.DepartamentosModule),
   },
   {
+    path: 'puestos',
+    loadChildren: () => import('../modules/puestos/puestos.module').then((m) => m.PuestosModule),
+  },
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',

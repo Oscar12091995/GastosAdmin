@@ -15,6 +15,7 @@ export class EditDepartamentosComponent {
 
     descripcion: string = '';
     isLoading: any;
+    estatus: boolean = false; // Nuevo estado del checkbox
 
     constructor(
       public modal: NgbActiveModal,
@@ -26,7 +27,7 @@ export class EditDepartamentosComponent {
 
     ngOnInit(): void {
       this.descripcion = this.DEPARTAMENTO_SELECTED.descripcion;
-
+      this.estatus = this.DEPARTAMENTO_SELECTED.estatus === 1;
     }
 
     //metodo para la agregar los permisos de la lista de checksbox o quitar, al
@@ -39,7 +40,7 @@ export class EditDepartamentosComponent {
       }
        let data = {
         descripcion: this.descripcion,
-
+        estatus: this.estatus ? 1 : 0, // Convertir booleano a 1 o 0 antes de enviarlo
       }
 
       this.departamentosService.updateDepartamento(this.DEPARTAMENTO_SELECTED.id,data).subscribe((resp: any) => {

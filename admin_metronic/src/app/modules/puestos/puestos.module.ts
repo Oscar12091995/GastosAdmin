@@ -7,6 +7,10 @@ import { CreatePuestosComponent } from './create-puestos/create-puestos.componen
 import { DeletePuestosComponent } from './delete-puestos/delete-puestos.component';
 import { EditPuestosComponent } from './edit-puestos/edit-puestos.component';
 import { ListPuestosComponent } from './list-puestos/list-puestos.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 
 
 @NgModule({
@@ -19,7 +23,15 @@ import { ListPuestosComponent } from './list-puestos/list-puestos.component';
   ],
   imports: [
     CommonModule,
-    PuestosRoutingModule
+    PuestosRoutingModule,
+    //importaciones necesarias para trabajar con metronic
+    HttpClientModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule,
+    InlineSVGModule,
+    NgbModalModule,
+    NgbPaginationModule,
   ]
 })
 export class PuestosModule { }

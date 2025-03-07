@@ -12,6 +12,7 @@ import { SIDEBAR } from 'src/app/config/config';
 export class CreateDepartamentosComponent {
   @Output() DepartamentoC: EventEmitter<any> = new EventEmitter();
     descripcion: string = '';
+    estatus: boolean = true; //
     isLoading: any;
     SIDEBAR: any = SIDEBAR;
 
@@ -35,6 +36,7 @@ export class CreateDepartamentosComponent {
 
       let data = {
         descripcion: this.descripcion,
+        estatus: this.estatus,
       }
 
       this.departamentosService.registerDepartamento(data).subscribe((resp: any) => {

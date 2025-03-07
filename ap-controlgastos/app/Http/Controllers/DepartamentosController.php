@@ -59,9 +59,10 @@ class DepartamentosController extends Controller
             "message" => 200,
             "departamento" => [
                 "id" => $departamento->id,
+                "descripcion" => $departamento->descripcion,
+                "estatus" => 1,
                 "puestos" => $departamento->puestos->pluck("descripcion"),
                 "created_at" => $departamento->created_at->format("Y-m-d h:i A"),
-                "descripcion" => $departamento->descripcion,
             ]
         ]);
     }
@@ -96,9 +97,11 @@ class DepartamentosController extends Controller
             "message" => 200,
             "departamento" => [
                 "id" => $departamento->id,
+                "descripcion" => $departamento->descripcion,
+                "estatus" => $departamento->estatus,
                 "puestos" => $departamento->puestos->pluck("descripcion"),
                 "created_at" => $departamento->created_at->format("Y-m-d h:i A"),
-                "descripcion" => $departamento->descripcion,
+
             ]
         ]);
     }

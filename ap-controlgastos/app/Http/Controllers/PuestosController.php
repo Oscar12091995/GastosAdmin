@@ -27,7 +27,7 @@ class PuestosController extends Controller
                    "estatus" => $puesto->estatus,
                    //este tambien es valido
                //$puestos = Puesto::where('puesto_id', $puesto->id)->pluck("descripcion");
-                   "departamento" => $puesto->departamento->pluck("descripcion"),
+                   "departamento" => $puesto->departamento ? $puesto->departamento->descripcion : "Sin Departamento",
                    "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
                ]);
                //return $departamento;
@@ -38,11 +38,11 @@ class PuestosController extends Controller
     //metodo para llenar un select, creamos la funcion.
     //en una variable damos a igual al Model que tenemos como relacion
     //y simplemente devolvemos el json
-    public function departamentosList(){
-        $departamentos = Departamento::where("estatus",1)->get();
+    public function config(){
+        $departaments = Departamento::where("estatus",1)->get();
 
         return response()->json([
-            "departamentos" => $departamentos,
+            "departamentos" => $departaments,
         ]);
     }
 
@@ -61,14 +61,16 @@ class PuestosController extends Controller
         //me quede aqui segui con el update y verificar los demas modulos
         $puesto = Puestos::create([
             'guard_name' => 'api',
-            'descripcion' => $request->descripcion
+            'descripcion' => $request->descripcion,
+            'departamento_id' => $request->departamento
         ]);
 
         return response()->json([
             "message" => 200,
             "puestos" => [
                 "id" => $puesto->id,
-                "departamento" => $puesto->departamento->pluck("descripcion"),
+                "departamento" => $puesto->departamento->descripcion,
+                "estatus" => 1,
                 "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
                 "descripcion" => $puesto->descripcion,
             ]
@@ -88,7 +90,30 @@ class PuestosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $IS_PUESTO = Puestos::where("descripcion",$request->descripcion)->where("id","<>",$id)->first();
+        if ($IS_PUESTO) {
+            return response()->json([
+                "message" => 403,
+                "message_text" => "Este puesto ya existe"
+            ]);
+        }
+        //me quede aqui segui con el update y verificar los demas modulos
+        $puesto = Puestos::create([
+            'guard_name' => 'api',
+            'descripcion' => $request->descripcion,
+            'departamento_id' => $request->departamento_id
+        ]);
+
+        return response()->json([
+            "message" => 200,
+            "puestos" => [
+                "id" => $puesto->id,
+                "departamento" => $puesto->departamento->pluck("descripcion"),
+                "estatus" => $puesto->puesto->estatus,
+                "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
+                "descripcion" => $puesto->descripcion,
+            ]
+        ]);
     }
 
     /**
@@ -96,6 +121,20 @@ class PuestosController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $puesto = Puestos::findOrFail($id);
+            $puesto->delete(); // Elimina y, gracias a ON DELETE CASCADE, los puestos también se eliminan
+
+            return response()->json([
+                "message" => 200,
+                "message_text" => "Puesto eliminado correctamente."
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => 500,
+                "message_text" => "Error al eliminar el puesto.",
+                "error" => $e->getMessage() // Opcional: muestra detalles del error (útil en desarrollo)
+            ], 500);
+        }
     }
 }

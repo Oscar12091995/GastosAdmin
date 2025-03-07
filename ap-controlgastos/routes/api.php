@@ -41,21 +41,16 @@ Route::group([
     //'prefix' => 'auth',
 ], function ($router) {
     Route::resource("roles",RolePermissionController::class);
+    Route::resource('departamentos', DepartamentosController::class);
+
+    Route::get("puestos/config", [PuestosController:: class, 'config']);
+    Route::resource('puestos', PuestosController::class);
+    //rutas que se necesitan para llenar listas de select u otras campos necesarios
+
 });
 
 //endpoint para el registro de departamentos
-Route::group([
-    'middleware' => 'auth:api',
-], function ($router) {
-    Route::resource('departamentos', DepartamentosController::class);
-});
 
-//endpoint para el registro de puestos
-Route::group([
-    'middleware' => 'auth:api',
-], function ($router) {
-    Route::resource('puestos', PuestosController::class);
-});
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
