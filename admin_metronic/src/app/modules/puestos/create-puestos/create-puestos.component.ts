@@ -45,7 +45,6 @@ export class CreatePuestosComponent {
 
           let data = {
             descripcion: this.descripcion,
-            estatus: this.estatus,
             departamento: this.departamento,
           }
 

@@ -66,14 +66,20 @@ class PuestosController extends Controller
         ]);
 
         return response()->json([
+
             "message" => 200,
-            "puestos" => [
-                "id" => $puesto->id,
-                "departamento" => $puesto->departamento->descripcion,
-                "estatus" => 1,
-                "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
-                "descripcion" => $puesto->descripcion,
-            ]
+            "puesto" => [
+
+                    "id" => $puesto->id,
+                    "descripcion" => $puesto->descripcion,
+                    "estatus" => 1,
+                    //este tambien es valido
+                //$puestos = Puesto::where('puesto_id', $puesto->id)->pluck("descripcion");
+                    "departamento" => $puesto->departamento ? $puesto->departamento->descripcion : "Sin Departamento",
+                    "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
+                ]
+                //return $departamento;
+
         ]);
     }
 
@@ -98,21 +104,26 @@ class PuestosController extends Controller
             ]);
         }
         //me quede aqui segui con el update y verificar los demas modulos
-        $puesto = Puestos::create([
-            'guard_name' => 'api',
-            'descripcion' => $request->descripcion,
-            'departamento_id' => $request->departamento_id
-        ]);
+
+        $puesto = Puestos::findOrFail($id);
+        $puesto->update($request->all());
+
 
         return response()->json([
+
             "message" => 200,
-            "puestos" => [
-                "id" => $puesto->id,
-                "departamento" => $puesto->departamento->pluck("descripcion"),
-                "estatus" => $puesto->puesto->estatus,
-                "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
-                "descripcion" => $puesto->descripcion,
-            ]
+            "puesto" => [
+
+                    "id" => $puesto->id,
+                    "descripcion" => $puesto->descripcion,
+                    "estatus" => $puesto->estatus,
+                    //este tambien es valido
+                //$puestos = Puesto::where('puesto_id', $puesto->id)->pluck("descripcion");
+                    "departamento" => $puesto->departamento ? $puesto->departamento->descripcion : "Sin Departamento",
+                    "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
+                ]
+                //return $departamento;
+
         ]);
     }
 

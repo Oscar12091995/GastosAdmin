@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class ListPuestosComponent {
   search:string = '';
-  estatus: boolean = false; //
+
   PUESTOS:any = [];
   isLoading:any;
   //para el inicio de la paginacion
@@ -72,7 +72,7 @@ export class ListPuestosComponent {
       //este metodo elimina con swwet alert en la vista de list
       deletePuesto(PUESTO: any) {
         Swal.fire({
-          title: `¿Eliminar Departamento: ${PUESTO.descripcion}?`,
+          title: `¿Eliminar el puesto siguiente: ${PUESTO.descripcion}?`,
           text: "Esta acción no se puede deshacer",
           icon: 'warning',
           showCancelButton: true,
@@ -87,7 +87,7 @@ export class ListPuestosComponent {
                 Swal.fire('Error', resp.message_text, 'error');
               } else {
                 Swal.fire('Eliminado', 'El puesto ha sido eliminado con éxito', 'warning');
-                this.PUESTOS = this.PUESTOS.filter((departamento: any) => departamento.id !== PUESTO.id); // Elimina de la lista
+                this.PUESTOS = this.PUESTOS.filter((puesto: any) => puesto.id !== PUESTO.id); // Elimina de la lista
               }
             });
           }

@@ -92,7 +92,11 @@
 
                 <td>
 
-                  <span style="width: 550px !important; display: block;" *ngIf="PUESTO.departamento.length > 0">
+                  <span style="width: 550px !important; display: block;" *ngIf="PUESTO.departamento != 'Sin Departamento'">
+                    {{ PUESTO.departamento }}
+                  </span>
+
+                  <span class="badge badge-light-danger" *ngIf="PUESTO.departamento === 'Sin Departamento'">
                     {{ PUESTO.departamento }}
                   </span>
 
