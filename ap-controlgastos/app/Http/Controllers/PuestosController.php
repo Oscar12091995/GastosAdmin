@@ -16,30 +16,31 @@ class PuestosController extends Controller
         $search = $request->get("search");
 
         //este hace la query a roles para filtrar por nombre con una paginacion de 25
-        $puestos = Puestos::with(["departamento"])->where("descripcion","like","%".$search."%")->orderBy("id","desc")->paginate(25);
+        $puestos = Puestos::with(["departamento"])->where("descripcion", "like", "%" . $search . "%")->orderBy("id", "desc")->paginate(25);
         return response()->json([
-           "total" => $puestos->total(),
+            "total" => $puestos->total(),
 
-           "puestos" => $puestos->map(function($puesto){
-               return collect([
-                   "id" => $puesto->id,
-                   "descripcion" => $puesto->descripcion,
-                   "estatus" => $puesto->estatus,
-                   //este tambien es valido
-               //$puestos = Puesto::where('puesto_id', $puesto->id)->pluck("descripcion");
-                   "departamento" => $puesto->departamento ? $puesto->departamento->descripcion : "Sin Departamento",
-                   "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
-               ]);
-               //return $departamento;
-           }),
-       ]);
+            "puestos" => $puestos->map(function ($puesto) {
+                return collect([
+                    "id" => $puesto->id,
+                    "descripcion" => $puesto->descripcion,
+                    "estatus" => $puesto->estatus,
+                    //este tambien es valido
+                    //$puestos = Puesto::where('puesto_id', $puesto->id)->pluck("descripcion");
+                    "departamento" => $puesto->departamento ? $puesto->departamento->descripcion : "Sin Departamento",
+                    "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
+                ]);
+                //return $departamento;
+            }),
+        ]);
     }
 
     //metodo para llenar un select, creamos la funcion.
     //en una variable damos a igual al Model que tenemos como relacion
     //y simplemente devolvemos el json
-    public function config(){
-        $departaments = Departamento::where("estatus",1)->get();
+    public function config()
+    {
+        $departaments = Departamento::where("estatus", 1)->get();
 
         return response()->json([
             "departamentos" => $departaments,
@@ -51,7 +52,7 @@ class PuestosController extends Controller
      */
     public function store(Request $request)
     {
-        $IS_PUESTO = Puestos::where("descripcion",$request->descripcion)->first();
+        $IS_PUESTO = Puestos::where("descripcion", $request->descripcion)->first();
         if ($IS_PUESTO) {
             return response()->json([
                 "message" => 403,
@@ -70,15 +71,15 @@ class PuestosController extends Controller
             "message" => 200,
             "puesto" => [
 
-                    "id" => $puesto->id,
-                    "descripcion" => $puesto->descripcion,
-                    "estatus" => 1,
-                    //este tambien es valido
+                "id" => $puesto->id,
+                "descripcion" => $puesto->descripcion,
+                "estatus" => 1,
+                //este tambien es valido
                 //$puestos = Puesto::where('puesto_id', $puesto->id)->pluck("descripcion");
-                    "departamento" => $puesto->departamento ? $puesto->departamento->descripcion : "Sin Departamento",
-                    "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
-                ]
-                //return $departamento;
+                "departamento" => $puesto->departamento ? $puesto->departamento->descripcion : "Sin Departamento",
+                "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
+            ]
+            //return $departamento;
 
         ]);
     }
@@ -96,7 +97,7 @@ class PuestosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $IS_PUESTO = Puestos::where("descripcion",$request->descripcion)->where("id","<>",$id)->first();
+        $IS_PUESTO = Puestos::where("descripcion", $request->descripcion)->where("id", "<>", $id)->first();
         if ($IS_PUESTO) {
             return response()->json([
                 "message" => 403,
@@ -106,7 +107,16 @@ class PuestosController extends Controller
         //me quede aqui segui con el update y verificar los demas modulos
 
         $puesto = Puestos::findOrFail($id);
-        $puesto->update($request->all());
+        // Verificar si el request incluye el ID del departamento
+    if ($request->has('departamento')) {
+        $puesto->departamento_id = $request->departamento;  // Asignar el ID correcto
+    }
+
+         // Actualizar el resto de los datos
+    $puesto->update([
+        "descripcion" => $request->descripcion,
+        "estatus" => $request->estatus
+    ]);
 
 
         return response()->json([
@@ -114,15 +124,15 @@ class PuestosController extends Controller
             "message" => 200,
             "puesto" => [
 
-                    "id" => $puesto->id,
-                    "descripcion" => $puesto->descripcion,
-                    "estatus" => $puesto->estatus,
-                    //este tambien es valido
+                "id" => $puesto->id,
+                "descripcion" => $puesto->descripcion,
+                "estatus" => $puesto->estatus,
+                //este tambien es valido
                 //$puestos = Puesto::where('puesto_id', $puesto->id)->pluck("descripcion");
-                    "departamento" => $puesto->departamento ? $puesto->departamento->descripcion : "Sin Departamento",
-                    "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
-                ]
-                //return $departamento;
+                "departamento" => $puesto->departamento ? $puesto->departamento->descripcion : "Sin Departamento",
+                "created_at" => $puesto->created_at->format("Y-m-d h:i A"),
+            ]
+            //return $departamento;
 
         ]);
     }

@@ -16,7 +16,7 @@ export class EditPuestosComponent {
       descripcion: string = '';
       isLoading: any;
       estatus: boolean = false;
-      departamento:string = '';
+      departamento:any = 0;
       DEPARTAMENTOS:any[] = [];
 
           constructor(
@@ -30,19 +30,40 @@ export class EditPuestosComponent {
           }
 
           ngOnInit(): void{
-            this.descripcion = this.PUESTO_SELECTED.descripcion;
-            this.estatus = this.PUESTO_SELECTED.estatus === 1;
-            this.departamento  = this.PUESTO_SELECTED.departamento_id;
+            if (this.PUESTO_SELECTED) {
+              this.descripcion = this.PUESTO_SELECTED.descripcion;
+              this.estatus = this.PUESTO_SELECTED.estatus === 1;
 
-            console.log(this.departamento);
-             // Cargar departamentos desde el servicio
-      this.puestosService.configAll().subscribe((resp: any) => {
-        this.DEPARTAMENTOS = resp.departamentos;
+              // Cargar departamentos desde el servicio
+              this.puestosService.configAll().subscribe((resp: any) => {
+                  this.DEPARTAMENTOS = resp.departamentos;
 
+                  // Verifica si PUESTO_SELECTED.departamento es un objeto, un ID o una descripción
+                  if (this.PUESTO_SELECTED.departamento) {
+                      // if (typeof this.PUESTO_SELECTED.departamento === 'object' && this.PUESTO_SELECTED.departamento.id)
+                      // {
+                      //     // Caso 1: es un objeto { id: 2, descripcion: 'Limpieza' }
+                      //     this.departamento = this.PUESTO_SELECTED.departamento.id;
+                      // } else if (typeof this.PUESTO_SELECTED.departamento === 'number') {
+                      //     // Caso 2: ya es un ID numérico
+                      //     this.departamento = this.PUESTO_SELECTED.departamento;
+                      // } else
+                       if (typeof this.PUESTO_SELECTED.departamento === 'string') {
+                          // Caso 3: es una descripción, buscar el ID correspondiente
+                          const departamentoEncontrado = this.DEPARTAMENTOS.find(dep => dep.descripcion === this.PUESTO_SELECTED.departamento);
+                          this.departamento = departamentoEncontrado ? departamentoEncontrado.id : 0;
+                      }
+                  } else {
+                      this.departamento = 0; // Si no hay departamento asignado
+                  }
 
-            // Extraer solo el ID si `departamento` es un objeto
+                  console.log('Departamentos cargados:', this.DEPARTAMENTOS);
+                  console.log('Departamento seleccionado (ID):', this.departamento);
 
-            });
+                  // Forzar la detección de cambios en la vista
+                  this.cdr.detectChanges();
+              });
+          }
           }
 
           store() {
@@ -55,6 +76,8 @@ export class EditPuestosComponent {
               estatus: this.estatus ? 1 : 0, // Convertir booleano a 1 o 0 antes de enviarlo
               departamento: this.departamento,
             }
+
+            console.log(this.departamento);
 
             this.puestosService.updatePuesto(this.PUESTO_SELECTED.id,data).subscribe((resp: any) => {
               console.log(resp);
