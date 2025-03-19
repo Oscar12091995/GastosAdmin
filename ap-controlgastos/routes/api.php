@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\DepartamentosController;
+use App\Http\Controllers\MarcasController;
+
+use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\PuestosController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Http\Request;
@@ -45,6 +49,12 @@ Route::group([
 
     Route::get("puestos/config", [PuestosController:: class, 'config']);
     Route::resource('puestos', PuestosController::class);
+
+    Route::resource('categorias', CategoriasController::class);
+
+    Route::resource('marcas', MarcasController::class);
+
+    Route::resource('proveedores', ProveedoresController::class);
     //rutas que se necesitan para llenar listas de select u otras campos necesarios
 
 });

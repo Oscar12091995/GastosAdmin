@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { CategoriasModule } from '../modules/categorias/categorias.module';
 
 const Routing: Routes = [
   {
@@ -59,6 +60,22 @@ const Routing: Routes = [
   {
     path: 'puestos',
     loadChildren: () => import('../modules/puestos/puestos.module').then((m) => m.PuestosModule),
+  },
+  {
+    //categorias
+    path: 'categorias',
+    loadChildren: () => import('../modules/categorias/categorias.module').then((m) => m.CategoriasModule),
+  },
+  {
+    //marcas
+    path: 'marcas',
+    loadChildren: () => import('../modules/marcas/marcas.module').then((m) => m.MarcasModule),
+  },
+  {
+    //proveedores
+    //seguirle en crud de proveedoresse hizo solo ellist falta el create y el edit
+    path: 'proveedores',
+    loadChildren: () => import('../modules/proveedores/proveedores.module').then((m) => m.ProveedoresModule),
   },
   {
     path: '',

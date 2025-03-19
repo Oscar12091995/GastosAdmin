@@ -33,6 +33,7 @@ return new class extends Migration
             $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('set null');
             $table->foreign('puesto_id')->references('id')->on('puestos')->onDelete('set null');
             $table->timestamps();
+            $table->softDeletes('deleted_at')->nullable();
         });
     }
 

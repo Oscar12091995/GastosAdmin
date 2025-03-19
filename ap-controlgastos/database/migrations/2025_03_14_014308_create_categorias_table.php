@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departamentos', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion')->nullable();
             $table->tinyInteger('estatus')->default(1);
             $table->string('usuario_registro')->nullable();
             $table->timestamps();
             $table->softDeletes('deleted_at')->nullable();
-            //$table->timestamps('deleted_at')->nulleable();
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departamentos');
+        Schema::dropIfExists('categorias');
     }
 };

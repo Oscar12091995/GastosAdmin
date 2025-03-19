@@ -60,7 +60,7 @@ class DepartamentosController extends Controller
             "departamento" => [
                 "id" => $departamento->id,
                 "descripcion" => $departamento->descripcion,
-                "estatus" => 1,
+                "estatus" => $departamento->estatus,
                 "puestos" => $departamento->puestos->pluck("descripcion"),
                 "created_at" => $departamento->created_at->format("Y-m-d h:i A"),
             ]

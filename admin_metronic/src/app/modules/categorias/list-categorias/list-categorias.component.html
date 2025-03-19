@@ -1,0 +1,146 @@
+<div class="card">
+  <!--begin::Card header-->
+  <div class="card-header border-0 pt-6">
+    <!--begin::Card title-->
+    <div class="card-title">
+      <!--begin::Search-->
+      <div class="d-flex align-items-center position-relative my-1">
+        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5"><span class="path1"></span><span
+            class="path2"></span></i> <input type="text" name="search" [(ngModel)]="search"
+          data-kt-customer-table-filter="search" (keyup.enter)="listCategorias()" class="form-control form-control-solid w-300px ps-12"
+          placeholder="Buscar categoría de producto">
+      </div>
+      <!--end::Search-->
+    </div>
+    <!--begin::Card title-->
+
+    <!--begin::Card toolbar-->
+    <div class="card-toolbar">
+      <!--begin::Toolbar-->
+      <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+        <!--begin::Add customer-->
+        <button type="button" class="btn btn-light-primary me-3" (click)="createCategoria()">
+          <i class="fa-duotone fa-solid fa-plus fs-2"></i>
+           Nueva Categoría
+        </button>
+        <!--end::Add customer-->
+      </div>
+      <!--end::Toolbar-->
+
+      <!--begin::Group actions-->
+      <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
+        <div class="fw-bold me-5">
+          <span class="me-2" data-kt-customer-table-select="selected_count"></span> Selected
+        </div>
+
+        <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">
+          Delete Selected
+        </button>
+      </div>
+      <!--end::Group actions-->
+    </div>
+    <!--end::Card toolbar-->
+  </div>
+  <!--end::Card header-->
+
+  <!--begin::Card body-->
+  <div class="card-body pt-0">
+
+    <!--begin::Table-->
+    <div id="kt_customers_table_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer">
+      <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+      <div id="" class="table-responsive">
+
+        <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable" id="kt_customers_table"
+          style="width: 100%;">
+          <!-- <colgroup>
+                        <col data-dt-column="0" style="width: 36.4px;">
+                        <col data-dt-column="1" style="width: 159.413px;">
+                        <col data-dt-column="2" style="width: 200.312px;">
+                        <col data-dt-column="3" style="width: 229.613px;">
+                        <col data-dt-column="4" style="width: 162.825px;">
+                        <col data-dt-column="5" style="width: 213.025px;">
+                        <col data-dt-column="6" style="width: 134.113px;">
+                    </colgroup> -->
+          <thead>
+            <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="1" rowspan="1" colspan="1"
+                aria-label="Customer Name: Activate to sort" tabindex="0"><span class="dt-column-title"
+                  role="button">Categoría</span><span class="dt-column-order"></span></th>
+
+              <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="5" rowspan="1" colspan="1"
+                aria-label="Created Date: Activate to sort" tabindex="0"><span class="dt-column-title"
+                  role="button">Fecha registro</span><span class="dt-column-order"></span></th>
+                  <th class="min-w-125px dt-orderable-asc dt-orderable-desc" data-dt-column="5" rowspan="1" colspan="1"
+                  aria-label="Estatus : Activate to sort" tabindex="0"><span class="dt-column-title"
+                    role="button">Estatus</span><span class="dt-column-order"></span></th>
+              <th class="min-w-70px dt-orderable-none" data-dt-column="6" rowspan="1" colspan="1" aria-label="Actions">
+                <span class="dt-column-title">Acciones</span><span class="dt-column-order"></span></th>
+            </tr>
+          </thead>
+          <tbody class="fw-semibold text-gray-600">
+
+            <ng-container *ngFor="let CATEGORIA of CATEGORIAS">
+              <tr>
+                <td>
+                  {{ CATEGORIA.descripcion }}
+
+                </td>
+
+
+                <td data-order="2020-12-14T20:43:00-06:00">
+                  {{CATEGORIA.created_at}}
+                </td>
+                <td>
+
+                  <span class="badge badge-light-success" *ngIf="CATEGORIA.estatus === 1">
+                    Activo
+                  </span>
+                  <span class="badge badge-light-danger" *ngIf="CATEGORIA.estatus === 0">
+                    Inactivo
+                  </span>
+                </td>
+                <td class="">
+                  <!-- boton para editar -->
+                  <a *ngIf="CATEGORIA.id > 1" href="#" onclick="return false;" (click)="editCategoria(CATEGORIA)"
+                    class="btn btn-icon btn-bg-light btn-active-color-success btn-sm me-1" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Editar">
+                    <i class="ki-duotone ki-pencil fs-1"><span class="path1"></span><span class="path2"></span></i>
+                  </a>
+                  <!-- boton para eliminar -->
+                  <a *ngIf="CATEGORIA.id > 1" href="#" onclick="return false;" (click)="deleteCategoria(CATEGORIA)" class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm"
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+
+                    <i class="ki-duotone ki-trash fs-2x"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span><span class="path4"></span><span class="path5"></span></i>
+                  </a>
+                </td>
+              </tr>
+            </ng-container>
+            <!-- <td>
+                                <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                    <input class="form-check-input" type="checkbox" value="1">
+                                </div>
+                            </td> -->
+
+
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+        <!--  para la paginacion de los datos y el 25 este numero de pagina corresponde al paginado que se declara en el backend del api-->
+        <ngb-pagination
+                    [collectionSize]="totalPages"
+                    [(page)]="currentPage"
+                    [pageSize]="25"
+                    [rotate]="true"
+                    [boundaryLinks]="true"
+                    (pageChange)="loadPage($event)"
+                ></ngb-pagination>
+      </div>
+
+    </div>
+    <!--end::Table-->
+  </div>
+  <!--end::Card body-->
+</div>
+<p>list-categorias works!</p>

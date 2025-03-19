@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('cascade');
             $table->string('usuario_registro')->nullable();
             $table->timestamps();
+            $table->softDeletes('deleted_at')->nullable();
         });
     }
 

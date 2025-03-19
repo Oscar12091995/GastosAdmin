@@ -78,7 +78,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private toastr: ToastrService
   ) {
-    this.toastr.success('Hello world!', 'Toastr fun!');
+
     // define layout type and load layout
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
