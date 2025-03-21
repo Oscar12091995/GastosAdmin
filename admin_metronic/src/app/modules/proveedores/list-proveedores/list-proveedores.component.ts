@@ -49,7 +49,7 @@ export class ListProveedoresComponent {
 
   //se crea el metodo de crear rol, donde se hace referencia al modal service y se declaran sus objetos
     createProveedores() {
-      const modalRef = this.modalService.open(CreateProveedoresComponent, { centered: true, size: 'lg' });
+      const modalRef = this.modalService.open(CreateProveedoresComponent, { centered: false, size: 'md' });
 
       //este nos sirve oara recibir lo que acabamos de guardar y pushamos el rol creado para que se actualice
       modalRef.componentInstance.ProveedorCreate.subscribe((proveedor: any) => {
@@ -58,7 +58,7 @@ export class ListProveedoresComponent {
     }
 
     editProveedor(PROVEEDORS: any) {
-        const modalRef = this.modalService.open(EditProveedoresComponent, { centered: true, size: 'md' });
+        const modalRef = this.modalService.open(EditProveedoresComponent, { centered: false, size: 'md' });
         modalRef.componentInstance.PROVEEDOR_SELECTED = PROVEEDORS;
         //este nos sirve oara recibir lo que acabamos de guardar y pushamos el rol creado para que se actualice
         modalRef.componentInstance.ProveedorEdit.subscribe((proveedor: any) => {

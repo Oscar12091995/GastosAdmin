@@ -1,1 +1,95 @@
-<p>edit-proveedores works!</p>
+
+<div class="modal-content modal-dialog-scrollable">
+  <!--begin::Modal header-->
+  <div class="modal-header" id="kt_modal_add_user_header">
+      <!--begin::Modal title-->
+      <h2 class="fw-bolder">Nuevo Proveedor</h2>
+
+      <!--end::Modal title-->
+      <!--begin::Close-->
+      <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" (click)="modal.dismiss()">
+          <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+          <span class="svg-icon svg-icon-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                  <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+              </svg>
+          </span>
+          <!--end::Svg Icon-->
+      </div>
+      <!--end::Close-->
+  </div>
+  <!--end::Modal header-->
+  <!--begin::Modal body-->
+  <div class="modal-body mx-5 my-7" >
+      <!--begin::Form-->
+      <form id="kt_modal_add_user_form" class="form" action="#">
+           <!--begin::Scroll-->
+          <div class="d-flex flex-column scroll-y me-n7 pe-7" data-kt-scroll-activate="{default: false, lg:true}" data-kt-scroll-max-height="auto" data-kt-scroll-offset="300px" style="max-height: 350px;">
+              <!--begin::Input group-->
+
+              <div class="fv-row mb-3">
+                <label class="required fw-bold fs-6 mb-2">Nombre del Proveedor</label>
+                <input #nombreInput type="text" name="nombre" class="form-control" [(ngModel)]="nombre" placeholder="Ingresa el nombre del proveedor" required />
+              </div>
+
+              <div class="fv-row mb-3">
+                <label class="required fw-bold fs-6 mb-2">Dirección</label>
+                <input #direccionInput type="text" name="direccion" class="form-control" [(ngModel)]="direccion"  placeholder="calle San Juan #213" required/>
+              </div>
+
+              <div class="fv-row mb-3">
+                <label class="required fw-bold fs-6 mb-2">Teléfono</label>
+                <input #telefonoInput type="tel" name="telefono" class="form-control" [(ngModel)]="telefono" placeholder="8212121313" required />
+              </div>
+
+              <div class="fv-row mb-3">
+                <label class="required fw-bold fs-6 mb-2">Correo</label>
+                <input #correoInput type="email" name="correo" class="form-control" [(ngModel)]="correo" placeholder="ejemplo@email.com" required/>
+              </div>
+
+              <div class="fv-row mb-3">
+                <label class="required fw-bold fs-6 mb-2">RFC</label>
+                <input #rfcInput type="text" name="rfc" class="form-control" [(ngModel)]="rfc" placeholder="EOIL991212968" />
+              </div>
+
+              <div class="fv-row mb-7">
+                <div class="form-check form-check-custom form-check-success form-check-solid">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="estatus" name="estatus"/>
+                  <label class="form-check-label" for="">
+                      Activo
+                  </label>
+                </div>
+              </div>
+          </div>
+          <!--end::Scroll-->
+          <!-- <div class="fv-row mb-7">
+              <label class="required fw-bold fs-6 mb-2">Selec. XXXXXX</label>
+              <select
+                  class="form-control form-select-solid fw-bolder"
+                  name="XXXXX"
+                  placeholder="Select"
+                  [(ngModel)]="XXXXXXXXXXXX"
+              >
+                  <option value=""></option>
+              </select>
+          </div> -->
+
+          <!--begin::Actions-->
+          <div class="text-center pt-15" data-kt-scroll="true" >
+              <button type="reset" class="btn btn-light-danger me-3" (click)="modal.dismiss()">Cancelar</button>
+              <button type="button" (click)="store()" class="btn btn-light-primary" data-kt-users-modal-action="submit">
+                  <span class="indicator-label">Guardar</span>
+
+                  <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+                  <!-- <span class="indicator-progress">Please wait...
+                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
+              </button>
+          </div>
+          <!--end::Actions-->
+      </form>
+      <!--end::Form-->
+  </div>
+  <!--end::Modal body-->
+</div>
+

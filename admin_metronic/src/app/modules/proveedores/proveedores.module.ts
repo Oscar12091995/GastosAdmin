@@ -14,14 +14,15 @@ import { NgbModule, NgbModalModule, NgbPaginationModule } from '@ng-bootstrap/ng
 import { InlineSVGModule } from 'ng-inline-svg-2';
 
 
+
 @NgModule({
   declarations: [
     ProveedoresComponent,
-
     CreateProveedoresComponent,
     EditProveedoresComponent,
     ListProveedoresComponent,
-    DeleteProveedoresComponent
+    DeleteProveedoresComponent,
+
   ],
   imports: [
     CommonModule,

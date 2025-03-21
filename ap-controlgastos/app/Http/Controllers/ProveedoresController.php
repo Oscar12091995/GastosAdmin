@@ -42,7 +42,7 @@ class ProveedoresController extends Controller
      */
     public function store(Request $request)
     {
-        $IS_PROVEEDOR = Proveedores::where("descripcion",$request->descripcion)->first();
+        $IS_PROVEEDOR = Proveedores::where("nombre",$request->nombre)->first();
         if ($IS_PROVEEDOR) {
             return response()->json([
                 "message" => 403,
@@ -87,11 +87,11 @@ class ProveedoresController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $IS_PROVEEDOR = Proveedores::where("descripcion",$request->descripcion)->where("id","<>",$id)->first();
+        $IS_PROVEEDOR = Proveedores::where("nombre",$request->nombre)->where("id","<>",$id)->first();
         if ($IS_PROVEEDOR) {
             return response()->json([
                 "message" => 403,
-                "message_text" => "Esta marca ya existe"
+                "message_text" => "Este proveedor ya existe"
             ]);
         }
 
@@ -107,7 +107,7 @@ class ProveedoresController extends Controller
                 "telefono" => $proveedor->telefono,
                 "correo" => $proveedor->correo,
                 "rfc" => $proveedor->rfc,
-                "estatus" => 1,
+                "estatus" => $proveedor->estatus,
                 "created_at" => $proveedor->created_at->format("Y-m-d h:i A"),
             ]
         ]);
