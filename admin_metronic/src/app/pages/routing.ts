@@ -78,6 +78,14 @@ const Routing: Routes = [
     loadChildren: () => import('../modules/proveedores/proveedores.module').then((m) => m.ProveedoresModule),
   },
   {
+    path: 'registro_empleados',
+    loadChildren:() => import('../modules/empleados/empleados.module').then((m) => m.EmpleadosModule),
+  },
+  {
+    path: 'empleados',
+    loadChildren:() => import('../modules/empleados/empleados.module').then((m) => m.EmpleadosModule),
+  },
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',

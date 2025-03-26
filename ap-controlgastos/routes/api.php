@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\DepartamentosController;
+use App\Http\Controllers\Empleados\EmpleadosController;
 use App\Http\Controllers\MarcasController;
 
 use App\Http\Controllers\ProveedoresController;
@@ -56,7 +57,8 @@ Route::group([
 
     Route::resource('proveedores', ProveedoresController::class);
     //rutas que se necesitan para llenar listas de select u otras campos necesarios
-
+    Route::post('empleados/{id}',[EmpleadosController::class, 'update']);
+    Route::resource("empleados", EmpleadosController::class);
 });
 
 //endpoint para el registro de departamentos

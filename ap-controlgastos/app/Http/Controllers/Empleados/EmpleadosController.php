@@ -20,23 +20,24 @@ class EmpleadosController extends Controller
         return response()->json([
            "total" => $empleados->total(),
 
-           "empleados" => $empleados->map(function($empleado){
-               return ([
-                   "id" => $empleado->id,
-                   "nombre_completo" => trim(($empleado->nombre ?? '') . ' ' . ($empleado->appaterno ?? '') . ' ' . ($empleado->apmaterno ?? '')),
-                   'telefono' => $empleado->telefono,
-                   "curp" => $empleado->curp,
-                   "rfc" => $empleado->rfc,
-                   "seguro_social" => $empleado->seguro_social,
-                   "genero" => $empleado->genero,
-                   "estatus" => $empleado->estatus,
-                   "avatar" => $empleado->avatar ? env('APP_URL')."storage/".$empleado->avatar : null,
-                   //este tambien es valido
-               //$puestos = Puesto::where('empleado_id', $empleado->id)->pluck("descripcion");
-                   "created_at" => $empleado->created_at->format("Y-m-d h:i A"),
-               ]);
-               //return $departamento;
-           }),
+            "empleados" => $empleados
+        //->map(function($empleado){
+        //        return ([
+        //            "id" => $empleado->id,
+        //            "nombre_completo" => trim(($empleado->nombre ?? '') . ' ' . ($empleado->appaterno ?? '') . ' ' . ($empleado->apmaterno ?? '')),
+        //            'telefono' => $empleado->telefono,
+        //            "curp" => $empleado->curp,
+        //            "rfc" => $empleado->rfc,
+        //            "seguro_social" => $empleado->seguro_social,
+        //            "genero" => $empleado->genero,
+        //            "estatus" => $empleado->estatus,
+        //            "avatar" => $empleado->avatar ? env('APP_URL')."storage/".$empleado->avatar : null,
+        //            //este tambien es valido
+        //        //$puestos = Puesto::where('empleado_id', $empleado->id)->pluck("descripcion");
+        //            "created_at" => $empleado->created_at->format("Y-m-d h:i A"),
+        //        ]);
+        //        //return $departamento;
+        //    }),
        ]);
     }
 
@@ -53,8 +54,8 @@ class EmpleadosController extends Controller
             ]);
         }
 
-        if ($request->hasFile("image")) {
-            $path = Storage::putFile("empleados", $request->file("image"));
+        if ($request->hasFile("empleado_imagen")) {
+            $path = Storage::putFile("empleados", $request->file("empleado_imagen"));
             $request->request->add(["avatar" => $path]);
         }
 
@@ -70,26 +71,25 @@ class EmpleadosController extends Controller
             'domicilio' => $request->domicilio,
             'colonia' => $request->colonia,
             'municipio' => $request->municipio,
-
         ]);
 
         //continuar en el update y delete  y ver para hacer en 2 rutas
         return response()->json([
             "message" => 200,
-            "empleados" => [
-                "id" => $empleado->id,
-                   "nombre_completo" => trim(($empleado->nombre ?? '') . ' ' . ($empleado->appaterno ?? '') . ' ' . ($empleado->apmaterno ?? '')),
-                   'telefono' => $empleado->telefono,
-                   "curp" => $empleado->curp,
-                   "rfc" => $empleado->rfc,
-                   "seguro_social" => $empleado->seguro_social,
-                   "genero" => $empleado->genero,
-                   "estatus" => $empleado->estatus,
-                   "avatar" => $empleado->avatar ? env('APP_URL')."storage/".$empleado->avatar : null,
-                   //este tambien es valido
-               //$puestos = Puesto::where('empleado_id', $empleado->id)->pluck("descripcion");
-                   "created_at" => $empleado->created_at->format("Y-m-d h:i A"),
-            ]
+            // "empleados" => [
+            //     "id" => $empleado->id,
+            //        "nombre_completo" => trim(($empleado->nombre ?? '') . ' ' . ($empleado->appaterno ?? '') . ' ' . ($empleado->apmaterno ?? '')),
+            //        'telefono' => $empleado->telefono,
+            //        "curp" => $empleado->curp,
+            //        "rfc" => $empleado->rfc,
+            //        "seguro_social" => $empleado->seguro_social,
+            //        "genero" => $empleado->genero,
+            //        "estatus" => $empleado->estatus,
+            //        "avatar" => $empleado->avatar ? env('APP_URL')."storage/".$empleado->avatar : null,
+            //        //este tambien es valido
+            //    //$puestos = Puesto::where('empleado_id', $empleado->id)->pluck("descripcion");
+            //        "created_at" => $empleado->created_at->format("Y-m-d h:i A"),
+            // ]
         ]);
     }
 
@@ -98,7 +98,11 @@ class EmpleadosController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $empleado = Empleados::findOrFail($id);
+
+        return response()->json([
+            "empleado" => $empleado,
+        ]);
     }
 
     /**
@@ -106,7 +110,28 @@ class EmpleadosController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $IS_EMPLEADO = Empleados::where("nombre",$request->nombre)->where("id","<>",$id)->first();
+        if ($IS_EMPLEADO) {
+            return response()->json([
+                "message" => 403,
+                "message_text" => "Esta empleado ya existe"
+            ]);
+        }
+
+        $empleado = Empleados::findOrFail($id);
+
+        if ($request->hasFile("empleado_imagen")) {
+            if ($empleado->avatar) {
+                Storage::delete($empleado->avatar);
+            }
+            $path = Storage::putFile("empleados", $request->file("empleado_imagen"));
+            $request->request->add(["avatar" => $path]);
+        }
+
+        $empleado->update($request->all());
+        return response()->json([
+            "message" => 200,
+        ]);
     }
 
     /**
@@ -114,6 +139,11 @@ class EmpleadosController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $empleado = Empleados::findOrFail($id);
+
+        $empleado->delete();
+        return response()->json([
+            "message" => 200
+        ]);
     }
 }
