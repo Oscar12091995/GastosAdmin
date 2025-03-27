@@ -14,7 +14,7 @@ const routes: Routes = [{
       component: ListEmpleadosComponent
     },
     {
-      path: 'register',
+      path: 'registro',
       component: CreateEmpleadosComponent
     },
     {
