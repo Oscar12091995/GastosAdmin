@@ -7,478 +7,312 @@
     <!--begin::Form-->
     <form id="kt_ecommerce_add_product_form"
       class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework"
-      data-kt-redirect="/metronic8/demo1/apps/ecommerce/catalog/products.html">
-      <!--begin::Aside column-->
+       [formGroup]="form" (ngSubmit)="store()">
       <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-        <!--begin::Thumbnail settings-->
         <div class="card card-flush py-4">
-          <!--begin::Card header-->
           <div class="card-header">
-            <!--begin::Card title-->
             <div class="card-title">
               <h2>Fotografía</h2>
             </div>
-            <!--end::Card title-->
           </div>
-          <!--end::Card header-->
-
-          <!--begin::Card body-->
           <div class="card-body text-center pt-0">
-            <!--begin::Image input-->
-            <!--begin::Image input placeholder-->
-            <!-- <style>
-              .image-input-placeholder {
-                background-image: url('../../../../');
-              }
-
-              [data-bs-theme="dark"] .image-input-placeholder {
-                background-image: url('../../../../assets/media/svg/files/blank-image-dark.svg');
-              }
-            </style> -->
-            <!--end::Image input placeholder-->
-
             <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-              data-kt-image-input="true"
-              [ngStyle]="{'background-image': 'url(' + avatar_previsualiza +')'}"
-              >
-              <!--begin::Preview existing avatar-->
+              data-kt-image-input="true" [ngStyle]="{'background-image': 'url(' + avatar_previsualiza +')'}">
               <div class="image-input-wrapper w-150px h-150px"></div>
-              <!--end::Preview existing avatar-->
-
-              <!--begin::Label-->
               <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                 data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar"
                 data-bs-original-title="Change avatar" data-kt-initialized="1">
-                <i class="ki-duotone ki-pencil fs-7" >
+                <i class="ki-duotone ki-pencil fs-7">
                   <span class="path1"></span>
                   <span class="path2"></span></i>
-                <!--begin::Inputs-->
                 <input type="file" name="avatar" accept=".png, .jpg, .jpeg" (change)="processFile($event)">
                 <input type="hidden" name="avatar_remove">
-                <!--end::Inputs-->
               </label>
-              <!--end::Label-->
-
-              <!--begin::Cancel-->
               <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                 data-kt-image-input-action="cancel" data-bs-toggle="tooltip" aria-label="Cancel avatar"
                 data-bs-original-title="Cancel avatar" data-kt-initialized="1">
                 <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i> </span>
-              <!--end::Cancel-->
-
-              <!--begin::Remove-->
               <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                 data-kt-image-input-action="remove" data-bs-toggle="tooltip" aria-label="Remove avatar"
                 data-bs-original-title="Remove avatar" data-kt-initialized="1">
                 <i class="ki-duotone ki-cross fs-2"><span class="path1"></span><span class="path2"></span></i> </span>
-              <!--end::Remove-->
             </div>
-            <!--end::Image input-->
-
-            <!--begin::Description-->
             <div class="text-muted fs-7">Set the product thumbnail image. Only *.png, *.jpg and *.jpeg image files are
               accepted</div>
-            <!--end::Description-->
           </div>
-          <!--end::Card body-->
         </div>
-        <!--end::Thumbnail settings-->
-        <!--begin::Status-->
         <div class="card card-flush py-4">
-          <!--begin::Card header-->
           <div class="card-header">
-            <!--begin::Card title-->
             <div class="card-title">
               <h2>Activo</h2>
             </div>
-            <!--end::Card title-->
-
-            <!--begin::Card toolbar-->
             <div class="card-toolbar">
               <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
             </div>
-            <!--begin::Card toolbar-->
           </div>
-          <!--end::Card header-->
-
-
         </div>
-        <!--end::Status-->
       </div>
-      <!--end::Aside column-->
-
-      <!--begin::Main column-->
       <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-        <!--begin:::Tabs-->
         <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2"
           role="tablist">
-          <!--begin:::Tab item-->
           <li class="nav-item" role="presentation">
-            <a class="nav-link text-active-primary pb-4" onclick="return false;" (click)="selectedTab(1)" [ngClass]="{'active': tab_selected == 1}" data-bs-toggle="tab"
-              href="#kt_ecommerce_add_product_general" aria-selected="true" role="tab">Regitro de datos</a>
+            <a class="nav-link text-active-primary pb-4" onclick="return false;" (click)="selectedTab(1)"
+              [ngClass]="{'active': tab_selected == 1}" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general"
+              aria-selected="true" role="tab">Regitro de datos</a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link text-active-primary pb-4" onclick="return false;" (click)="selectedTab(2)" [ngClass]="{'active': tab_selected == 2}" data-bs-toggle="tab"
-              href="#kt_ecommerce_add_product_general" aria-selected="true" role="tab">Datos del trabajador</a>
+            <a class="nav-link text-active-primary pb-4" onclick="return false;" (click)="selectedTab(2)"
+              [ngClass]="{'active': tab_selected == 2}" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general"
+              aria-selected="true" role="tab">Datos del trabajador</a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link text-active-primary pb-4" onclick="return false;" (click)="selectedTab(3)" [ngClass]="{'active': tab_selected == 3}" data-bs-toggle="tab"
-              href="#kt_ecommerce_add_product_general" aria-selected="true" role="tab">Datos del domicilio</a>
+            <a class="nav-link text-active-primary pb-4" onclick="return false;" (click)="selectedTab(3)"
+              [ngClass]="{'active': tab_selected == 3}" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general"
+              aria-selected="true" role="tab">Datos del domicilio</a>
           </li>
-          <!--end:::Tab item-->
-
-
-
         </ul>
-        <!--end:::Tabs-->
-        <!--begin::Tab content-->
         <div class="tab-content">
-          <!--begin::Tab pane-->
-          <div class="tab-pane fade " [ngClass]="{'show active': tab_selected == 1}" id="kt_ecommerce_add_product_general" role="tab-panel">
+          <div class="tab-pane fade " [ngClass]="{'show active': tab_selected == 1}"
+            id="kt_ecommerce_add_product_general" role="tab-panel">
             <div class="d-flex flex-column gap-7 gap-lg-10">
-
-              <!--begin::General options-->
               <div class="card card-flush py-4">
-                <!--begin::Card header-->
-                <!-- <div class="card-header">
-                  <div class="card-title">
-                    <h2>Datos generales</h2>
-                  </div>
-                </div> -->
-                <!--end::Card header-->
-
-                <!--begin::Card body-->
                 <div class="card-body pt-0">
-                  <!--begin::Input group-->
                   <div class="row">
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-4 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">Nombre del empleado</label>
-                      <!--end::Label-->
-
-                      <!--begin::Input-->
-                      <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre del empleado"
-                        value="">
-                      <!--end::Input-->
-                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                      <input #nombreInput formControlName="nombre" type="text" name="nombre" class="form-control mb-2"
+                        placeholder="Nombre del empleado" required [ngClass]="{
+                          'is-invalid': form.get('nombre')?.invalid && (form.get('nombre')?.dirty || form.get('nombre')?.touched)
+                        }" />
+                      <div class="fv-plugins-message-container invalid-feedback"
+                        *ngIf="form.get('nombre')?.invalid && (form.get('nombre')?.dirty || form.get('nombre')?.touched)">
+                        <div *ngIf="form.get('nombre')?.errors?.required">El nombre es requerido</div>
                       </div>
                     </div>
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-4 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">Apellido paterno</label>
-                      <!--end::Label-->
-                      <!--begin::Input-->
                       <input type="text" name="appaterno" class="form-control mb-2" placeholder="Apellido paterno"
-                        value="">
-                      <!--end::Input-->
-                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                        #appaternoInput formControlName="appaterno" required [ngClass]="{
+                        'is-invalid': form.get('appaterno')?.invalid && (form.get('appaterno')?.dirty || form.get('appaterno')?.touched)
+                      }" />
+                      <div class="fv-plugins-message-container invalid-feedback"
+                        *ngIf="form.get('appaterno')?.invalid && (form.get('appaterno')?.dirty || form.get('appaterno')?.touched)">
+                        <div *ngIf="form.get('appaterno')?.errors?.required">El apellido paterno es requerido</div>
                       </div>
                     </div>
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-4 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">Apellido materno</label>
-                      <!--end::Label-->
-                      <!--begin::Input-->
                       <input type="text" name="apmaterno" class="form-control mb-2" placeholder="Apellido materno"
-                        value="">
-                      <!--end::Input-->
-                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                        required #apmaternoInput formControlName="apmaterno" [ngClass]="{
+                        'is-invalid': form.get('apmaterno')?.invalid && (form.get('apmaterno')?.dirty || form.get('apmaterno')?.touched)
+                      }" />
+                      <div class="fv-plugins-message-container invalid-feedback"
+                        *ngIf="form.get('apmaterno')?.invalid && (form.get('apmaterno')?.dirty || form.get('apmaterno')?.touched)">
+                        <div *ngIf="form.get('apmaterno')?.errors?.required">El apellido materno es requerido</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-6 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">CURP</label>
-                      <!--end::Label-->
-
-                      <!--begin::Input-->
-                      <input type="text" name="curp" class="form-control mb-2" placeholder="CURP del empleado"
-                        value="">
-                      <!--end::Input-->
-                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                      <input type="text" name="curp" class="form-control mb-2" placeholder="CURP del empleado" required
+                        #curpInput formControlName="curp" [ngClass]="{
+                          'is-valid': form.get('curp')?.valid && (form.get('curp')?.dirty || form.get('curp')?.touched),
+                          'is-invalid': form.get('curp')?.invalid && (form.get('curp')?.dirty || form.get('curp')?.touched)
+                        }" />
+                      <div class="fv-plugins-message-container invalid-feedback"
+                        *ngIf="form.get('curp')?.invalid && (form.get('curp')?.dirty || form.get('curp')?.touched)">
+                        <div *ngIf="form.get('curp')?.errors?.required">El CURP es requerido</div>
+                        <div *ngIf="form.get('curp')?.errors?.invalidcurp">El CURP no es válido</div>
                       </div>
                     </div>
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-6 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">Télefono</label>
-                      <!--end::Label-->
-                      <!--begin::Input-->
                       <input type="tel" name="telefono" class="form-control mb-2" placeholder="Número de contacto"
-                        value="">
-                      <!--end::Input-->
-                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                        required #telefonoInput formControlName="telefono" [ngClass]="{
+                          'is-invalid': form.get('telefono')?.invalid && (form.get('telefono')?.dirty || form.get('telefono')?.touched)
+                        }" />
+                      <div class="fv-plugins-message-container invalid-feedback"
+                        *ngIf="form.get('telefono')?.invalid && (form.get('telefono')?.dirty || form.get('telefono')?.touched)">
+                        <div *ngIf="form.get('telefono')?.errors?.required">El telefono es requerido</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                      <!--begin::Input group-->
-                  <div class="fv-row mb-10">
-                    <!--begin::Label-->
-                    <label class="form-label required">
-                      Género </label>
-                    <!--End::Label-->
-
-                    <!--begin::Row-->
-                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-4 g-6" data-kt-buttons="true"
-                      data-kt-buttons-target="[data-kt-button='true']" data-kt-initialized="1">
-                      <!--begin::Col-->
-                      <div class="col">
-                        <!--begin::Option-->
-                        <label
-                          class="btn btn-outline btn-outline-dashed btn-active-light-primary  d-flex text-start p-2"
-                          data-kt-button="true" [ngClass]="{'active' : is_genero  == 'masculino'}">
-                          <!--begin::Radio-->
-                          <span
-                            class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" name="genero" (click)="selectedGenero('masculino')">
-                          </span>
-                          <!--end::Radio-->
-
-                          <!--begin::Info-->
-                          <span class="ms-5">
-                            <span class="fs-4 fw-bold text-gray-800 d-block">Masculino</span>
-                          </span>
-                          <!--end::Info-->
-                        </label>
-                        <!--end::Option-->
+                    <div class="fv-row mb-10">
+                      <label class="form-label required">
+                        Género </label>
+                      <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-4 g-6" data-kt-buttons="true"
+                        data-kt-buttons-target="[data-kt-button='true']" data-kt-initialized="1">
+                        <div class="col">
+                          <label
+                            class="btn btn-outline btn-outline-dashed btn-active-light-primary  d-flex text-start p-2"
+                            data-kt-button="true" [ngClass]="{'active' : is_genero  == 'masculino'}">
+                            <span
+                              class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                              <input class="form-check-input" type="radio" value="masculino"
+                                (click)="selectedGenero('masculino')" required #generoInput formControlName="genero">
+                            </span>
+                            <span class="ms-5">
+                              <span class="fs-4 fw-bold text-gray-800 d-block">Masculino</span>
+                            </span>
+                          </label>
+                        </div>
+                        <div class="col">
+                          <label
+                            class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-2"
+                            data-kt-button="true" [ngClass]="{'active' : is_genero  == 'femenino'}">
+                            <span
+                              class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                              <input class="form-check-input" type="radio" value="femenino" #generoInput formControlName="genero"
+                                (click)="selectedGenero('femenino')" required>
+                            </span>
+                            <span class="ms-5">
+                              <span class="fs-4 fw-bold text-gray-800 d-block">Femenino</span>
+                            </span>
+                          </label>
+                        </div>
                       </div>
-                      <!--end::Col-->
-                      <!--begin::Col-->
-                      <div class="col">
-                        <!--begin::Option-->
-                        <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-2"
-                          data-kt-button="true" [ngClass]="{'active' : is_genero  == 'femenino'}">
-                          <!--begin::Radio-->
-                          <span
-                            class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                            <input class="form-check-input" type="radio" name="genero" (click)="selectedGenero('femenino')">
-                          </span>
-                          <!--end::Radio-->
-
-                          <!--begin::Info-->
-                          <span class="ms-5">
-                            <span class="fs-4 fw-bold text-gray-800 d-block">Femenino</span>
-                          </span>
-                          <!--end::Info-->
-                        </label>
-                        <!--end::Option-->
-                      </div>
-                      <!--end::Col-->
                     </div>
-                    <!--end::Row-->
-                  </div>
-                  <!--end::Input group-->
                   </div>
                 </div>
-                <!--end::Card header-->
               </div>
-              <!--end::General options-->
-
             </div>
           </div>
           <!--end::Tab pane-->
-          <div class="tab-pane fade " [ngClass]="{'show active': tab_selected == 2}" id="kt_ecommerce_add_product_general" role="tab-panel">
+          <div class="tab-pane fade " [ngClass]="{'show active': tab_selected == 2}"
+            id="kt_ecommerce_add_product_general" role="tab-panel">
             <div class="d-flex flex-column gap-7 gap-lg-10">
-              <!--begin::Pricing-->
               <div class="card card-flush py-4">
-                <!--begin::Card header-->
-                <!-- <div class="card-header">
-                  <div class="card-title">
-                    <h2>Datos del trabajador</h2>
-                  </div>
-                </div> -->
-                <!--end::Card header-->
-
-                <!--begin::Card body-->
                 <div class="card-body pt-0">
-                  <!--begin::Input group-->
                   <div class="row">
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-6 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">RFC</label>
-                      <!--end::Label-->
-                      <!--begin::Input-->
-                      <input type="text" name="rfc" class="form-control mb-2" placeholder="RFC del empleado">
-                      <!--end::Input-->
-                      <!--begin::Description-->
+                      <input type="text" class="form-control mb-2" placeholder="RFC del empleado" #rfcInput name="rfc"
+                        formControlName="rfc" [ngClass]="{
+                        'is-valid': form.get('rfc')?.valid && (form.get('rfc')?.dirty || form.get('rfc')?.touched),
+                        'is-invalid': form.get('rfc')?.invalid && (form.get('rfc')?.dirty || form.get('rfc')?.touched)
+                      }" />
                       <div class="text-muted fs-7">Para personas físicas es de 13 digistos.</div>
-                      <!--end::Description-->
-                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                      <div class="fv-plugins-message-container invalid-feedback"
+                        *ngIf="form.get('rfc')?.invalid && (form.get('rfc')?.dirty || form.get('rfc')?.touched)">
+                        <div *ngIf="form.get('rfc')?.errors?.required">El RFC es requerido</div>
+                        <div *ngIf="form.get('rfc')?.errors?.invalidRFC">El RFC no es válido</div>
                       </div>
                     </div>
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-6 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">N° del Seguro Social</label>
-                      <!--end::Label-->
-                      <!--begin::Input-->
-                      <input type="text" name="seguro_social" class="form-control mb-2" placeholder="NSS del empleado">
-                      <!--end::Input-->
-                      <!--begin::Description-->
+                      <input type="text" name="seguro_social" class="form-control mb-2" placeholder="NSS del empleado"
+                        #seguro_socialInput formControlName="seguro_social"
+                        [ngClass]="{
+                        'is-invalid': form.get('seguro_social')?.invalid && (form.get('seguro_social')?.dirty || form.get('seguro_social')?.touched)}" />
                       <div class="text-muted fs-7">Set the product price.</div>
-                      <!--end::Description-->
-                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                      <div class="fv-plugins-message-container invalid-feedback"
+                        *ngIf="form.get('seguro_social')?.invalid && (form.get('seguro_social')?.dirty || form.get('seguro_social')?.touched)">
+                        <div *ngIf="form.get('seguro_social')?.errors?.required">El seguro social del empleado es
+                          requerido</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="fv-row w-100 flex-md-root fv-plugins-icon-container col-sm-12 col-md-6 mb-10" >
-                      <!--begin::Label-->
+                    <div class="fv-row w-100 flex-md-root fv-plugins-icon-container col-sm-12 col-md-6 mb-10">
                       <label class="required form-label">Departamento</label>
-                      <!--end::Label-->
-
-                      <!--begin::Select2-->
-                      <select class="form-select mb-2 select2-hidden-accessible" name="tax" data-control="select2"
-                        data-hide-search="true" data-placeholder="Select an option"
-                        data-select2-id="select2-data-15-pars" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-                        <option data-select2-id="select2-data-17-g8qb"></option>
-                        <option value="0">Tax Free</option>
-                        <option value="1">Taxable Goods</option>
-                        <option value="2">Downloadable Product</option>
+                      <select class="form-select mb-2 select2-hidden-accessible"
+                         formControlName="departamento_id" (change)="onDepartamentoChange(form.value.departamento_id)">
+                        <option value="0" selected>-Selecciona una opcion-</option>
+                        <ng-container *ngFor="let DEPARTAMENTO of DEPARTAMENTOS">
+                          <option [value]="DEPARTAMENTO.id">{{DEPARTAMENTO.descripcion}}</option>
+                        </ng-container>
                       </select>
-                      <!-- <span class="select2 select2-container select2-container--bootstrap5" dir="ltr"
-                        data-select2-id="select2-data-16-b69i" style="width: 100%;"><span class="selection"><span
-                            class="select2-selection select2-selection--single form-select mb-2" role="combobox"
-                            aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false"
-                            aria-labelledby="select2-tax-uq-container" aria-controls="select2-tax-uq-container"><span
-                              class="select2-selection__rendered" id="select2-tax-uq-container" role="textbox"
-                              aria-readonly="true" title="Select an option"><span
-                                class="select2-selection__placeholder">Select an option</span></span><span
-                              class="select2-selection__arrow" role="presentation"><b
-                                role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-                          aria-hidden="true"></span></span> -->
-                      <!--end::Select2-->
 
-                      <!--end::Description-->
                       <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                       </div>
                     </div>
                     <div class="fv-row w-100 flex-md-root fv-plugins-icon-container col-sm-12 col-md-6 mb-10">
-                      <!--begin::Label-->
                       <label class="required form-label">Puesto</label>
-                      <!--end::Label-->
+                      <ng-container *ngIf="isLoadingPuestos">
+                        <span class="indicator-progress" [style.display]="'block'">
+                          Cargando puestos, espera por favor...
+                          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                      </ng-container>
+                      <select class="form-select mb-2 select2-hidden-accessible"
+                        name="puesto_id" formControlName="puesto_id">
 
-                      <!--begin::Select2-->
-                      <select class="form-select mb-2 select2-hidden-accessible" name="tax" data-control="select2"
-                        data-hide-search="true" data-placeholder="Select an option"
-                        data-select2-id="select2-data-15-pars" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-                        <option data-select2-id="select2-data-17-g8qb"></option>
-                        <option value="0">Tax Free</option>
-                        <option value="1">Taxable Goods</option>
-                        <option value="2">Downloadable Product</option>
+                        <ng-container *ngFor="let PUESTO of PUESTOS">
+                          <option [value]="PUESTO.id">{{PUESTO.descripcion}}</option>
+                        </ng-container>
                       </select>
-                      <!-- <span class="select2 select2-container select2-container--bootstrap5" dir="ltr"
-                        data-select2-id="select2-data-16-b69i" style="width: 100%;"><span class="selection"><span
-                            class="select2-selection select2-selection--single form-select mb-2" role="combobox"
-                            aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false"
-                            aria-labelledby="select2-tax-uq-container" aria-controls="select2-tax-uq-container"><span
-                              class="select2-selection__rendered" id="select2-tax-uq-container" role="textbox"
-                              aria-readonly="true" title="Select an option"><span
-                                class="select2-selection__placeholder">Select an option</span></span><span
-                              class="select2-selection__arrow" role="presentation"><b
-                                role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-                          aria-hidden="true"></span></span> -->
-                      <!--end::Select2-->
-
-                      <!--end::Description-->
+                      <span class="indicator-progress" *ngIf="isLoadingPuestos">
+                        Cargando Puestos, espera por favor...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
                       <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-6 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">Fecha de ingreso</label>
-                      <!--end::Label-->
-                      <!--begin::Input-->
-                      <input type="date" name="fecha_ingreso" class="form-control mb-2">
-                      <!--end::Input-->
-                      <!--end::Description-->
-                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                      <input type="date" class="form-control mb-2" #fecha_ingresoInput
+                        formControlName="fecha_ingreso"
+                        [ngClass]="{
+                        'is-invalid': form.get('fecha_ingreso')?.invalid && (form.get('fecha_ingreso')?.dirty || form.get('fecha_ingreso')?.touched)}" />
+                      <div class="fv-plugins-message-container invalid-feedback"
+                        *ngIf="form.get('fecha_ingreso')?.invalid && (form.get('fecha_ingreso')?.dirty || form.get('fecha_ingreso')?.touched)">
+                        <div *ngIf="form.get('fecha_ingreso')?.errors?.required">La fecha de ingreso es requerido</div>
                       </div>
                     </div>
                   </div>
-                  <!--end::Input group-->
-                  <!--end:Tax-->
                 </div>
-                <!--end::Card header-->
               </div>
             </div>
           </div>
 
-          <div class="tab-pane fade " [ngClass]="{'show active': tab_selected == 3}" id="kt_ecommerce_add_product_general" role="tab-panel">
+          <div class="tab-pane fade " [ngClass]="{'show active': tab_selected == 3}"
+            id="kt_ecommerce_add_product_general" role="tab-panel">
             <div class="d-flex flex-column gap-7 gap-lg-10">
-
               <div class="card card-flush py-4">
-                <!--begin::Card header-->
-                <!-- <div class="card-header">
-                  <div class="card-title">
-                    <h2>Datos del domiclio</h2>
-                  </div>
-                </div> -->
-                <!--end::Card header-->
-
-                <!--begin::Card body-->
                 <div class="card-body pt-0">
-                  <!--begin::Input group-->
                   <div class="row">
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-12 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">Dirección</label>
-                      <!--end::Label-->
-                      <!--begin::Input-->
-                      <input type="text" name="direccion" class="form-control mb-2" placeholder="Dirección del empleado">
-                      <!--end::Input-->
-                      <!--end::Description-->
-                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                      <input type="text" name="domicilio" class="form-control mb-2" placeholder="Dirección del empleado"
+                        #domicilioInput formControlName="domicilio"
+                        [ngClass]="{
+                        'is-invalid': form.get('domicilio')?.invalid && (form.get('domicilio')?.dirty || form.get('domicilio')?.touched)}" />
+                      <div class="fv-plugins-message-container invalid-feedback"
+                        *ngIf="form.get('domicilio')?.invalid && (form.get('domicilio')?.dirty || form.get('domicilio')?.touched)">
+                        <div *ngIf="form.get('domicilio')?.errors?.required">El domicilio es requerido</div>
                       </div>
                     </div>
-
                   </div>
                   <div class="row">
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-6 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">Colonia</label>
-                      <!--end::Label-->
-                      <!--begin::Input-->
-                      <input type="text" name="colonia" class="form-control mb-2" placeholder="NSS del empleado">
-                      <!--end::Input-->
-                      <!--end::Description-->
+                      <input type="text" name="colonia" class="form-control mb-2" placeholder="Colonia" #coloniaInput
+                        formControlName="colonia"
+                        [ngClass]="{
+                        'is-invalid': form.get('colonia')?.invalid && (form.get('colonia')?.dirty || form.get('colonia')?.touched)}" />
                       <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                       </div>
                     </div>
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-6 col-sm-12">
-                      <!--begin::Label-->
                       <label class="required form-label">Municipio</label>
-                      <!--end::Label-->
-                      <!--begin::Input-->
-                      <input type="text" name="municipio" class="form-control mb-2" placeholder="NSS del empleado">
-                      <!--end::Input-->
-                      <!--end::Description-->
+                      <input type="text" name="municipio" class="form-control mb-2" placeholder="Municipio"
+                        #municipioInput formControlName="municipio"
+                        [ngClass]="{
+                        'is-invalid': form.get('municipio')?.invalid && (form.get('municipio')?.dirty || form.get('municipio')?.touched)}" />
                       <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                       </div>
                     </div>
                   </div>
-                  <!--end::Input group-->
-                  <!--end:Tax-->
                 </div>
-                <!--end::Card header-->
               </div>
-              <!--end::Pricing-->
             </div>
           </div>
         </div>
-        <!--end::Tab content-->
-
         <div class="d-flex justify-content-end">
-          <!--begin::Button-->
-          <a href="/metronic8/demo1/apps/ecommerce/catalog/products.html" id="kt_ecommerce_add_product_cancel"
-            class="btn btn-light me-5">
-            Cancel
-          </a>
-          <!--end::Button-->
-
-          <!--begin::Button-->
           <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
             <span class="indicator-label">
               Save Changes
@@ -487,10 +321,8 @@
               Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
             </span>
           </button>
-          <!--end::Button-->
         </div>
       </div>
-      <!--end::Main column-->
     </form>
     <!--end::Form-->
   </div>

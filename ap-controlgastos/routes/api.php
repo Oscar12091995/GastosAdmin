@@ -58,6 +58,8 @@ Route::group([
     Route::resource('proveedores', ProveedoresController::class);
     //rutas que se necesitan para llenar listas de select u otras campos necesarios
     Route::post('empleados/{id}',[EmpleadosController::class, 'update']);
+    Route::get("empleados/departaments", [EmpleadosController:: class, 'departaments']);
+    Route::get("empleados/puests", [EmpleadosController:: class, 'puests']);
     Route::resource("empleados", EmpleadosController::class);
 });
 

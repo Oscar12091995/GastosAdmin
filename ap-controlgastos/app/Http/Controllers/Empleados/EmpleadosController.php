@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Empleados;
 
 use App\Http\Controllers\Controller;
+use App\Models\Departamento;
 use App\Models\Empleados;
+use App\Models\Puestos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,6 +43,21 @@ class EmpleadosController extends Controller
        ]);
     }
 
+    public function departaments(){
+        $departamento = Departamento::where("estatus",1)->get();
+
+        return response([
+            "departamentos" => $departamento
+        ]);
+    }
+
+    public function puests(Request $request){
+        $puesto = Puestos::where("departamento_id", $request->departamento_id)->where("estatus", 1)->get();
+
+        return response([
+            "puestos" => $puesto
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -71,6 +88,11 @@ class EmpleadosController extends Controller
             'domicilio' => $request->domicilio,
             'colonia' => $request->colonia,
             'municipio' => $request->municipio,
+            'avatar' => $request->avatar,
+            'genero' => $request->genero,
+            'fecha_ingreso' => $request->fecha_ingreso,
+            'departamento_id' => $request->departamento_id,
+            'puesto_id' => $request->puesto_id,
         ]);
 
         //continuar en el update y delete  y ver para hacer en 2 rutas
