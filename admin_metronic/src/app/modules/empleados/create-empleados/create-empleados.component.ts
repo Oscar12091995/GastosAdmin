@@ -13,7 +13,7 @@ export class CreateEmpleadosComponent {
 is_genero:any = 'masculino';
 tab_selected:number = 1;
 nombre:string = '';
-avatar:any;
+empleado_imagen:any;
 avatar_previsualiza:any = 'assets/media/svg/files/blank-image.svg';
 appaterno:string = '';
 apmaterno:string = '';
@@ -51,7 +51,7 @@ constructor(
         domicilio: ['', Validators.required],
         colonia: ['', Validators.required],
         municipio: ['', Validators.required],
-        avatar:[null],
+        empleado_imagen:[''],
         genero: ['', Validators.required],
         fecha_ingreso: ['', Validators.required],
         departamento_id: [''],
@@ -102,11 +102,11 @@ processFile($event:any){
     this.toast.warning("WARN", "El archivo no es una imagen");
     return false;
   }
-  this.avatar = $event.target.files[0];
+  this.empleado_imagen = $event.target.files[0];
   let reader = new FileReader();
-  reader.readAsDataURL(this.avatar);
+  reader.readAsDataURL(this.empleado_imagen);
   reader.onloadend = () => this.avatar_previsualiza = reader.result;
-  this.isloadingProccess();
+  //this.isloadingProccess();
 }
 
 selectedGenero(val:any){
@@ -137,20 +137,22 @@ store(){
     }
 
     let formData = new FormData();
-
   // Agregar los campos del formulario al FormData
   Object.keys(this.form.value).forEach(key => {
     const value = this.form.get(key)?.value;
+    formData.append(key, value);
 
-    // Si el valor es un archivo (avatar), manejarlo de manera especial
-    if (key === 'avatar' && value) {
-      formData.append(key, value, value.name); // 'value' es el archivo, 'value.name' es el nombre del archivo
-    } else if (value !== null) {
-      formData.append(key, value);
-    }
   });
+  formData.append('empleado_imagen', this.empleado_imagen);
+  // Si hay un avatar (imagen), agregarla al FormData
+    // Agregar la imagen con el nombre que Laravel espera
+    // if (this.empleado_imagen) {
 
-    //const data = this.form.value;
+    // }
+
+  console.log(this.empleado_imagen);
+  console.log(formData);
+   // const data = this.form.value;
 
     this.empleadoService.registerEmpleado(formData).subscribe((resp: any) => {
       console.log(resp);

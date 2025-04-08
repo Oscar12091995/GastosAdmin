@@ -25,7 +25,7 @@
                 <i class="ki-duotone ki-pencil fs-7">
                   <span class="path1"></span>
                   <span class="path2"></span></i>
-                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" (change)="processFile($event)">
+                <input type="file" #empleado_imagenInput formControlName="empleado_imagen"  accept=".png, .jpg, .jpeg" (change)="processFile($event)">
                 <input type="hidden" name="avatar_remove">
               </label>
               <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -128,7 +128,7 @@
                     </div>
                     <div class="mb-10 fv-row fv-plugins-icon-container col-md-6 col-sm-12">
                       <label class="required form-label">Télefono</label>
-                      <input type="tel" name="telefono" class="form-control mb-2" placeholder="Número de contacto"
+                      <input type="tel" class="form-control mb-2" placeholder="Número de contacto"
                         required #telefonoInput formControlName="telefono" [ngClass]="{
                           'is-invalid': form.get('telefono')?.invalid && (form.get('telefono')?.dirty || form.get('telefono')?.touched)
                         }" />

@@ -98,20 +98,6 @@ class EmpleadosController extends Controller
         //continuar en el update y delete  y ver para hacer en 2 rutas
         return response()->json([
             "message" => 200,
-            // "empleados" => [
-            //     "id" => $empleado->id,
-            //        "nombre_completo" => trim(($empleado->nombre ?? '') . ' ' . ($empleado->appaterno ?? '') . ' ' . ($empleado->apmaterno ?? '')),
-            //        'telefono' => $empleado->telefono,
-            //        "curp" => $empleado->curp,
-            //        "rfc" => $empleado->rfc,
-            //        "seguro_social" => $empleado->seguro_social,
-            //        "genero" => $empleado->genero,
-            //        "estatus" => $empleado->estatus,
-            //        "avatar" => $empleado->avatar ? env('APP_URL')."storage/".$empleado->avatar : null,
-            //        //este tambien es valido
-            //    //$puestos = Puesto::where('empleado_id', $empleado->id)->pluck("descripcion");
-            //        "created_at" => $empleado->created_at->format("Y-m-d h:i A"),
-            // ]
         ]);
     }
 
