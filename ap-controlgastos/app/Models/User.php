@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -21,9 +22,12 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name',
+        'apellido',
         'email',
         'password',
-        'empleado_id'
+        'empleado_id',
+        'role_id',
+        'avatar'
     ];
 
     /**
@@ -63,5 +67,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function empleado(){
         return $this->belongsTo(Empleados::class);
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
     }
 }

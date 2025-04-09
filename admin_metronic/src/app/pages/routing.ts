@@ -81,6 +81,11 @@ const Routing: Routes = [
     path: 'empleados',
     loadChildren:() => import('../modules/empleados/empleados.module').then((m) => m.EmpleadosModule),
   },
+  //usuarios
+  {
+    path: 'usuarios',
+    loadChildren: () => import('../modules/usuarios/usuarios.module').then((m) => m.UsuariosModule),
+  },
   {
     path: '',
     redirectTo: '/dashboard',

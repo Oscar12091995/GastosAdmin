@@ -9,6 +9,7 @@ use App\Http\Controllers\MarcasController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\PuestosController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\Usuario\UserAccessController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,8 @@ Route::group([
 ], function ($router) {
     Route::resource("roles",RolePermissionController::class);
     Route::resource('departamentos', DepartamentosController::class);
+    Route::resource("usuarios",UserAccessController::class);
+    Route::post('/usuarios/{id}',[UserAccessController::class, 'update']);
 
     Route::get("puestos/config", [PuestosController:: class, 'config']);
     Route::resource('puestos', PuestosController::class);

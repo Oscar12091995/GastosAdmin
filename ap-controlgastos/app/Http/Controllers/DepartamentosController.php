@@ -28,11 +28,7 @@ class DepartamentosController extends Controller
                 //$puestos = Puesto::where('departamento_id', $departamento->id)->pluck("descripcion");
                     "puestos" => $departamento->puestos->pluck("descripcion"),
                     "created_at" => $departamento->created_at->format("Y-m-d h:i A"),
-                ]);
-
-
-
-                //return $departamento;
+                ]);  //return $departamento;
             }),
         ]);
     }
