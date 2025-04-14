@@ -103,13 +103,13 @@
                 </td>
                 <td class="">
                   <!-- boton para editar -->
-                  <a *ngIf="USUARIO.id > 1" href="#" onclick="return false;" (click)="editUsuario(USUARIO)"
+                  <a href="#" onclick="return false;" (click)="editUsuario(USUARIO)"
                     class="btn btn-icon btn-bg-light btn-active-color-success btn-sm me-1" data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Editar">
                     <i class="ki-duotone ki-pencil fs-1"><span class="path1"></span><span class="path2"></span></i>
                   </a>
                   <!-- boton para eliminar -->
-                  <a *ngIf="USUARIO.id > 1" href="#" onclick="return false;" (click)="deleteUsuario(USUARIO)" class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm"
+                  <a href="#" onclick="return false;" (click)="deleteUsuario(USUARIO)" class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm"
                     data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
 
                     <i class="ki-duotone ki-trash fs-2x"><span class="path1"></span><span class="path2"></span><span

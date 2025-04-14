@@ -1,1 +1,147 @@
-<p>edit-usuario works!</p>
+<div class="modal-content modal-dialog-scrollable">
+  <!--begin::Modal header-->
+  <div class="modal-header" id="kt_modal_add_user_header">
+    <!--begin::Modal title-->
+    <h2 class="fw-bolder">Editar Usuario {{USUARIO_SELECTED.full_name}}</h2>
+
+    <!--end::Modal title-->
+    <!--begin::Close-->
+    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close"
+      (click)="modal.dismiss()">
+      <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+      <span class="svg-icon svg-icon-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)"
+            fill="currentColor" />
+          <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+        </svg>
+      </span>
+      <!--end::Svg Icon-->
+    </div>
+    <!--end::Close-->
+  </div>
+  <!--end::Modal header-->
+  <!--begin::Modal body-->
+  <div class="modal-body mx-5 my-7">
+    <!--begin::Form-->
+    <form id="kt_modal_add_user_form" class="form" [formGroup]="form" (ngSubmit)="store()">
+      <!--begin::Scroll-->
+      <div class="d-flex flex-column  me-n7 pe-7" data-kt-scroll-activate="{default: false, lg:true}"
+        data-kt-scroll-max-height="auto" data-kt-scroll-offset="300px" style="max-height: 350px;">
+        <!--begin::Input group-->
+        <div class="row">
+          <div class="col-6">
+            <label class="required fw-bold fs-6 mb-2">Nombre</label>
+            <div class="fv-row form-floating mb-2">
+
+              <input type="text" #nameInput type="text" formControlName="name" class="form-control" placeholder="Nombre"
+                [ngClass]="{
+                    'is-invalid': form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)
+                  }" required />
+              <label for="floatingInput">Nombre</label>
+            </div>
+            <div class="fv-plugins-message-container invalid-feedback"
+              *ngIf="form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)">
+              <div *ngIf="form.get('name')?.errors?.required">El nombre requerido</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <label class="required fw-bold fs-6 mb-2">Apellido</label>
+            <div class="fv-row form-floating mb-2">
+
+              <input #apellidoInput type="text" formControlName="apellido" class="form-control" placeholder="Nombre"
+                [ngClass]="{
+                    'is-invalid': form.get('apellido')?.invalid && (form.get('apellido')?.dirty || form.get('apellido')?.touched)
+                  }" required />
+              <label for="floatingInput">Apellido</label>
+            </div>
+            <div class="fv-plugins-message-container invalid-feedback"
+              *ngIf="form.get('apellido')?.invalid && (form.get('apellido')?.dirty || form.get('apellido')?.touched)">
+              <div *ngIf="form.get('apellido')?.errors?.required">El apellido es requerido</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label class="required fw-bold fs-6 mb-2">Correo</label>
+            <div class="fv-row form-floating mb-2">
+
+              <input #correoInput type="email" name="email" formControlName="email" class="form-control" [ngClass]="{
+                    'is-valid': form.get('email')?.valid && (form.get('email')?.dirty || form.get('email')?.touched),
+                    'is-invalid': form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)
+                  }" placeholder="ejemplo@email.com" required />
+              <label for="floatingInput">Correo</label>
+            </div>
+            <div class="fv-plugins-message-container invalid-feedback"
+              *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
+              <div *ngIf="form.get('email')?.errors?.required">El correo es requerido</div>
+              <div *ngIf="form.get('email')?.errors?.email">El correo no es válido</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <label class="required fw-bold fs-6 mb-2">Selecciona el Rol de usuario:</label>
+            <select class="form-select" #role_idInput formControlName="role_id">
+              <option value="0" selected>-Selecciona una opcion-</option>
+              <ng-container *ngFor="let ROL of ROLES">
+                <option [value]="ROL.id">{{ROL.name}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-6">
+            <label class="required fw-bold fs-6 mb-2">Contraseña</label>
+            <div class="fv-row form-floating mb-2">
+              <input #passwordInput type="password" formControlName="password" class="form-control form-control-solid" placeholder="*****"
+                [ngClass]="{'is-invalid': form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)}"
+                data-kt-password-meter="true" password-meter-control="visibility" data-kt-password-meter-control="highlight"/>
+              <label for="floatingInput">Contraseña</label>
+
+            </div>
+            <div class="fv-plugins-message-container invalid-feedback" *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)">
+              <div *ngIf="form.get('password')?.errors?.required">la contraseña es requerida</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <label class="required fw-bold fs-6 mb-2">Contraseña</label>
+            <div class="fv-row form-floating mb-2">
+              <input #password_repeatInput type="password" formControlName="password_repeat" class="form-control form-control-solid"
+                placeholder="******" [ngClass]="{'is-invalid': form.get('password_repeat')?.invalid && (form.get('password_repeat')?.dirty || form.get('password_repeat')?.touched)}"  />
+              <label for="floatingInput">Contraseña</label>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+              <label class="form-label">Sube tu imagen: *</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" #usuario_imagenInput formControlName="usuario_imagen"
+                  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+              </div>
+            </div>
+            <div *ngIf="avatar_previsualiza">
+              <img [src]="avatar_previsualiza" style="height: 100px;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--begin::Actions-->
+      <div class="text-center pt-15" data-kt-scroll="true">
+        <button type="reset" class="btn btn-light-danger me-3" (click)="modal.dismiss()">Cancelar</button>
+        <button type="submit" class="btn btn-light-success" data-kt-users-modal-action="submit">
+          <span class="indicator-label">Actualizar</span>
+
+          <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading | async"></span>
+          <!-- <span class="indicator-progress">Please wait...
+                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
+        </button>
+      </div>
+      <!--end::Actions-->
+    </form>
+    <!--end::Form-->
+  </div>
+  <!--end::Modal body-->
+</div>

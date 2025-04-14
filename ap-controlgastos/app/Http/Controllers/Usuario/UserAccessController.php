@@ -30,11 +30,20 @@ class UserAccessController extends Controller
                    "role_id" => $usuario->role_id,
                    "role" => $usuario->role,
                    "roles" => $usuario->roles,
-                   "avatar" => $usuario->avatar ? env("APP_URL")."/storage".$usuario->avatar : null,
+                   "avatar" => $usuario->avatar ? env("APP_URL")."/storage/".$usuario->avatar : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
                    "created_at" => $usuario->created_at->format("Y-m-d h:i A"),
                ]);  //return $departamento;
            }),
        ]);
+    }
+
+    public function rols(){
+
+        $roles = Role::all();
+
+        return response([
+            "roles" => $roles
+        ]);
     }
 
     /**
@@ -75,11 +84,13 @@ class UserAccessController extends Controller
                    "email" => $usuario->email,
                    "role_id" => $usuario->role_id,
                    "role" => $usuario->roles,
-                   "avatar" => $usuario->avatar ? env("APP_URL")."/storage".$usuario->avatar : null,
+                   "avatar" => $usuario->avatar ? env("APP_URL")."/storage/".$usuario->avatar : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
                    "created_at" => $usuario->created_at->format("Y-m-d h:i A"),
             ]
         ]);
     }
+
+
 
     /**
      * Display the specified resource.
@@ -137,7 +148,7 @@ class UserAccessController extends Controller
                    "email" => $usuario->email,
                    "role_id" => $usuario->role_id,
                    "role" => $usuario->roles,
-                   "avatar" => $usuario->avatar ? env("APP_URL")."/storage".$usuario->avatar : null,
+                   "avatar" => $usuario->avatar ? env("APP_URL")."/storage/".$usuario->avatar : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
                    "created_at" => $usuario->created_at->format("Y-m-d h:i A"),
             ]
         ]);
@@ -148,7 +159,7 @@ class UserAccessController extends Controller
      */
     public function destroy(string $id)
     {
-        $usuario = User::where($id)->first();
+        $usuario = User::find($id);
         if ($usuario->avatar) {
             Storage::delete($usuario->avatar);
         }

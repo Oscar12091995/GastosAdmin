@@ -72,6 +72,19 @@ export class UsuariosService {
         );
       }
 
+      listRoles(){
+        this.isLoadingSubject.next(true);
+        //para acceder al token y enviarlo en la apeticion http
+        let headers = new HttpHeaders({'Authorization': 'Bearer ' + this.authservice.token});
+        //para accerder la url la variable es de la variable global del archivo config y paso en la URL ek ID_ROL
+        let URL = URL_SERVICIOS + "/usuarios/rols";
+        //se retorna el metodo http -> put -> que es para actualizar, pasamos el URL, el arreglo de la data con los datos necesarios
+        return this.http.get(URL,{headers: headers}).pipe(
+          //con esto damos por finalizado la solicitud http
+          finalize(() => this.isLoadingSubject.next(false))
+        );
+      }
+
       deleteUsuario(ID_USUARIO:string){
         //apartado necesario de metronic
         //inicio de solicitud http

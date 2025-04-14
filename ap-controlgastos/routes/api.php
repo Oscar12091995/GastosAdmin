@@ -48,8 +48,10 @@ Route::group([
 ], function ($router) {
     Route::resource("roles",RolePermissionController::class);
     Route::resource('departamentos', DepartamentosController::class);
-    Route::resource("usuarios",UserAccessController::class);
+
     Route::post('/usuarios/{id}',[UserAccessController::class, 'update']);
+    Route::get('usuarios/rols', [UserAccessController::class, 'rols']);
+    Route::resource("usuarios",UserAccessController::class);
 
     Route::get("puestos/config", [PuestosController:: class, 'config']);
     Route::resource('puestos', PuestosController::class);
