@@ -3,7 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -15,6 +18,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
+    USE SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -72,4 +76,17 @@ class User extends Authenticatable implements JWTSubject
     public function role(){
         return $this->belongsTo(Role::class);
     }
+
+    public function setCreatedAt($value)
+    {
+        date_default_timezone_set("America/Monterrey");
+        $this->attributes["created_at"] = Carbon::now();
+    }
+    //para el cambio de zona horaria en el update
+    public function setUpdatedAt($value)
+    {
+        date_default_timezone_set("America/Monterrey");
+        $this->attributes["updated_at"] = Carbon::now();
+    }
+
 }

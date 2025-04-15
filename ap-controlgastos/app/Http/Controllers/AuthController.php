@@ -39,13 +39,20 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $permissions = auth("api")->user()->getAllPermissions()->map(function($perm){
+            return $perm->name;
+        });
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60,
             'user' => [
-                "full_name" => auth("api")->user()->name,
-                "email" => auth("api")->user()->email
+                "full_name" => auth('api')->user()->name.' '.auth('api')->user()->apellido,
+                "email" => auth('api')->user()->email,
+                "avatar" => auth('api')->user()->avatar ? env("APP_URL")."/storage/".auth('api')->user()->avatar : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+                "role" => auth('api')->user()->role->name,
+                "permission" => $permissions
             ]
             // 'user' => $user,
             // 'authorization' => [
@@ -172,10 +179,20 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+        $permissions = auth("api")->user()->getAllPermissions()->map(function($perm){
+            return $perm->name;
+        });
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => JWTAuth::factory()->getTTL() * 60
+            'expires_in' => JWTAuth::factory()->getTTL() * 60,
+            'user' => [
+                "full_name" => auth('api')->user()->name.' '.auth('api')->user()->apellido,
+                "email" => auth('api')->user()->email,
+                "avatar" => auth('api')->user()->avatar ? env("APP_URL")."/storage/".auth('api')->user()->avatar : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+                "role" => auth('api')->user()->role->name,
+                "permission" => $permissions
+            ]
         ]);
     }
 }

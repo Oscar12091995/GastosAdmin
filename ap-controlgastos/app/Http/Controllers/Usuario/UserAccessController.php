@@ -83,7 +83,8 @@ class UserAccessController extends Controller
                    "full_name" => $usuario->name. ' '.$usuario->apellido,
                    "email" => $usuario->email,
                    "role_id" => $usuario->role_id,
-                   "role" => $usuario->roles,
+                   "role" => $usuario->role,
+                   "roles" => $usuario->roles,
                    "avatar" => $usuario->avatar ? env("APP_URL")."/storage/".$usuario->avatar : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
                    "created_at" => $usuario->created_at->format("Y-m-d h:i A"),
             ]
@@ -147,7 +148,8 @@ class UserAccessController extends Controller
                    "full_name" => $usuario->name. ' '.$usuario->apellido,
                    "email" => $usuario->email,
                    "role_id" => $usuario->role_id,
-                   "role" => $usuario->roles,
+                   "role" => $usuario->role,
+                   "roles" => $usuario->roles,
                    "avatar" => $usuario->avatar ? env("APP_URL")."/storage/".$usuario->avatar : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
                    "created_at" => $usuario->created_at->format("Y-m-d h:i A"),
             ]
